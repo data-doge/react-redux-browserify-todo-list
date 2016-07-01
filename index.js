@@ -1,5 +1,7 @@
-import expect from 'expect'
+import $ from 'jquery'
+import { createStore } from 'redux'
 
+// reducer
 const counter = (state = 0, action) => {
   switch (action.type) {
     case 'INCREMENT':
@@ -11,28 +13,21 @@ const counter = (state = 0, action) => {
   }
 }
 
-expect(
-  counter(0, { type: 'INCREMENT' })
-).toEqual(1)
+const store = createStore(counter)
+/*
+  dispatch(action): calls reducer with action
+  getState(): returns the current state
+  subscribe(callback): calls callback whenever dispatch is called
+*/
 
-expect(
-  counter(1, { type: 'INCREMENT' })
-).toEqual(2)
+const render = () => {
+  $('body').html(store.getState())
+}
 
-expect(
-  counter(2, { type: 'DECREMENT' })
-).toEqual(1)
+store.subscribe(render)
+render()
 
-expect(
-  counter(1, { type: 'DECREMENT' })
-).toEqual(0)
-
-expect(
-  counter(1, { type: 'FUCK' })
-).toEqual(1)
-
-expect(
-  counter(undefined, {})
-).toEqual(0)
-
-console.log('tests passed')
+$(document).click((e) => {
+  console.log('meow')
+  store.dispatch({type: 'INCREMENT'})
+})
