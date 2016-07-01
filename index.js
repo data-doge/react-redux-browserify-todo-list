@@ -1,134 +1,92 @@
 import { createStore } from 'redux'
-import React from 'react'
-import ReactDOM from 'react-dom'
 import deepFreeze from 'deep-freeze'
 import expect from 'expect'
 
-// reducer
-const counter = (state = 0, action) => {
+const todos = (state = [], action) => {
   switch (action.type) {
-    case 'INCREMENT':
-      return state + 1
-    case 'DECREMENT':
-      return state - 1
+    case 'ADD_TODO':
+      return [
+        ...state,
+        {
+          id: action.id,
+          text: action.text,
+          completed: false
+        }
+      ]
+    case 'TOGGLE_TODO':
+      return state.map(todo => {
+        if (todo.id !== action.id) return todo
+        return {
+          ...todo,
+          completed: !todo.completed
+        }
+      })
     default:
-      return state
+     return state
   }
 }
 
-const Counter = ({ value, onIncrement, onDecrement }) => (
-  <div>
-    <h1>{value}</h1>
-    <button onClick={onIncrement}>+</button>
-    <button onClick={onDecrement}>-</button>
-  </div>
-)
-
-const store = createStore(counter)
-/*
-  dispatch(action): calls reducer with action
-  getState(): returns the current state
-  subscribe(callback): calls callback whenever dispatch is called
-*/
-
-const render = () => {
-  ReactDOM.render(
-    <Counter
-      value={store.getState()}
-      onIncrement={() =>
-        store.dispatch({ type: 'INCREMENT' })
-      }
-      onDecrement={() =>
-        store.dispatch({ type: 'DECREMENT' })
-      }
-    />,
-    document.getElementById('root')
-  )
-}
-
-store.subscribe(render)
-render()
-
-// -----------------------------
-
-const addCounter = (list) => {
-  return [...list, 0]
-}
-
-const removeCounter = (list, i) => {
-  return [
-    ...list.slice(0, i),
-    ...list.slice(i + 1)
+const testAddTodo = () => {
+  const stateBefore = []
+  const action = {
+    type: 'ADD_TODO',
+    id: 0,
+    text: 'Learn Redux'
+  }
+  const stateAfter = [
+    {
+      id: 0,
+      text: 'Learn Redux',
+      completed: false
+    }
   ]
+
+  deepFreeze(stateBefore)
+  deepFreeze(action)
+
+  expect(
+    todos(stateBefore, action)
+  ).toEqual(stateAfter)
 }
 
-const incrementCounter = (list, i) => {
-  return [
-    ...list.slice(0, i),
-    list[i] + 1,
-    ...list.slice(i + 1)
+const testToggleTodo = () => {
+  const stateBefore = [
+    {
+      id: 0,
+      text: 'Learn Redux',
+      completed: false
+    },
+    {
+      id: 1,
+      text: 'Go shopping',
+      completed: false
+    }
   ]
-}
-
-const decrementCounter = (list, i) => {
-  return [
-    ...list.slice(0, i),
-    list[i] - 1,
-    ...list.slice(i + 1)
+  const action = {
+    type: 'TOGGLE_TODO',
+    id: 1
+  }
+  const stateAfter = [
+    {
+      id: 0,
+      text: 'Learn Redux',
+      completed: false
+    },
+    {
+      id: 1,
+      text: 'Go shopping',
+      completed: true
+    }
   ]
-}
 
-const testAddCounter = () => {
-  const listBefore = []
-  const listAfter = [0]
-
-  deepFreeze(listBefore)
-  expect(
-    addCounter(listBefore)
-  ).toEqual(listAfter)
-
-  console.log('addCounter works!')
-}
-testAddCounter()
-
-const testRemoveCounter = () => {
-  const listBefore = [0, 10, 20]
-  const listAfter = [0, 20]
-
-  deepFreeze(listBefore)
+  deepFreeze(stateBefore)
+  deepFreeze(action)
 
   expect(
-    removeCounter(listBefore, 1)
-  ).toEqual(listAfter)
-
-  console.log('removeCounter works!')
+    todos(stateBefore, action)
+  ).toEqual(stateAfter)
 }
-testRemoveCounter()
 
-const testIncrementCounter = () => {
-  const listBefore = [0, 10, 20]
-  const listAfter = [0, 11, 20]
-
-  deepFreeze(listBefore)
-
-  expect(
-    incrementCounter(listBefore, 1)
-  ).toEqual(listAfter)
-
-  console.log('incrementCounter works!')
-}
-testIncrementCounter()
-
-const testDecrementCounter = () => {
-  const listBefore = [0, 10, 20]
-  const listAfter = [0, 9, 20]
-
-  deepFreeze(listBefore)
-
-  expect(
-    decrementCounter(listBefore, 1)
-  ).toEqual(listAfter)
-
-  console.log('decrementCounter works!')
-}
-testDecrementCounter()
+testAddTodo()
+testToggleTodo()
+console.log('all tests pass!')
