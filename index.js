@@ -35,67 +35,24 @@ const todos = (state = [], action) => {
   }
 }
 
-const testAddTodo = () => {
-  const stateBefore = []
-  const action = {
-    type: 'ADD_TODO',
-    id: 0,
-    text: 'Learn Redux'
+const visibilityFilter = (state = 'SHOW_ALL', action) => {
+  switch (action.type) {
+    case 'SET_VISIBILITY_FILTER':
+      return action.filter
+    default:
+      return state
   }
-  const stateAfter = [
-    {
-      id: 0,
-      text: 'Learn Redux',
-      completed: false
-    }
-  ]
-
-  deepFreeze(stateBefore)
-  deepFreeze(action)
-
-  expect(
-    todos(stateBefore, action)
-  ).toEqual(stateAfter)
 }
 
-const testToggleTodo = () => {
-  const stateBefore = [
-    {
-      id: 0,
-      text: 'Learn Redux',
-      completed: false
-    },
-    {
-      id: 1,
-      text: 'Go shopping',
-      completed: false
-    }
-  ]
-  const action = {
-    type: 'TOGGLE_TODO',
-    id: 1
+const todoApp = (state = {}, action) => {
+  return {
+    todos: todos(
+      state.todos,
+      action
+    ),
+    visibilityFilter: visibilityFilter(
+      state.visibilityFilter,
+      action
+    )
   }
-  const stateAfter = [
-    {
-      id: 0,
-      text: 'Learn Redux',
-      completed: false
-    },
-    {
-      id: 1,
-      text: 'Go shopping',
-      completed: true
-    }
-  ]
-
-  deepFreeze(stateBefore)
-  deepFreeze(action)
-
-  expect(
-    todos(stateBefore, action)
-  ).toEqual(stateAfter)
 }
-
-testAddTodo()
-testToggleTodo()
-console.log('all tests pass!')
