@@ -3,6 +3,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 const { Component } = React
 import TodoList from './todo-list.js'
+import AddTodo from './add-todo.js'
+import Footer from './footer.js'
 
 const todo = (state, action) => {
   switch (action.type) {
@@ -53,21 +55,6 @@ const todoApp = combineReducers({
 
 const store = createStore(todoApp)
 
-const FilterLink = ({filter, currentFilter, children}) => {
-  if (filter === currentFilter) {
-    return <span>{children}</span>
-  }
-
-  return (
-    <a href="#" onClick={(e) => {
-        e.preventDefault()
-        store.dispatch({ type: 'SET_VISIBILITY_FILTER', filter: filter})
-      }}>
-      {children}
-    </a>
-  )
-}
-
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
     case 'SHOW_ALL':
@@ -87,31 +74,21 @@ class TodoApp extends Component {
 
     return (
       <div>
-        <input ref={node => { this.input = node }} />
+        <AddTodo onAddClick={text =>
+          store.dispatch({ type: 'ADD_TODO', text: text, id: nextTodoId++ })
+        }/>
 
-        <button onClick={() => {
-          store.dispatch({ type: 'ADD_TODO', text: this.input.value, id: nextTodoId++ })
-          this.input.value = ''
-        }}>Add Todo</button>
+        <TodoList
+          todos={visibleTodos}
+          onTodoClick={id => store.dispatch({type: 'TOGGLE_TODO', id})}
+        />
 
-      <TodoList
-        todos={visibleTodos}
-        onTodoClick={id => store.dispatch({type: 'TOGGLE_TODO', id})}
-      />
-
-        <p>
-          <FilterLink filter='SHOW_ALL' currentFilter={visibilityFilter}>
-            All
-          </FilterLink>
-          {' '}
-          <FilterLink filter='SHOW_ACTIVE' currentFilter={visibilityFilter}>
-            Active
-          </FilterLink>
-          {' '}
-          <FilterLink filter='SHOW_COMPLETED' currentFilter={visibilityFilter}>
-            Completed
-          </FilterLink>
-        </p>
+        <Footer
+          visibilityFilter={visibilityFilter}
+          onFilterClick={filter =>
+            store.dispatch({ type: 'SET_VISIBILITY_FILTER', filter: filter})
+          }
+        />
       </div>
     )
   }
