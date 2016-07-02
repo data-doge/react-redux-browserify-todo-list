@@ -17,13 +17,13 @@ const Link = ({active, children, onClick}) => {
 }
 
 class FilterLink extends Component {
-  // componentDidMount () {
-  //   this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate())
-  // }
-  //
-  // componentWillUnmount () {
-  //   this.unsubscribe()
-  // }
+  componentDidMount () {
+    this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate())
+  }
+
+  componentWillUnmount () {
+    this.unsubscribe()
+  }
 
   render () {
     const {filter, store, children} = this.props

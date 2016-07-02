@@ -55,25 +55,15 @@ const todoApp = combineReducers({
 
 const store = createStore(todoApp)
 
-let nextTodoId = 0
-const TodoApp = ({todos, visibilityFilter}) => (
+const TodoApp = () => (
   <div>
-    <AddTodo onAddClick={text =>
-      store.dispatch({ type: 'ADD_TODO', text: text, id: nextTodoId++ })
-    }/>
-
+    <AddTodo store={store} />
     <VisibleTodoList store={store} />
-
     <Footer store={store} />
   </div>
 )
 
-const render = () => {
-  ReactDOM.render(
-    <TodoApp {...store.getState()}/>,
-    document.getElementById('root')
-  )
-}
-
-store.subscribe(render)
-render()
+ReactDOM.render(
+  <TodoApp />,
+  document.getElementById('root')
+)

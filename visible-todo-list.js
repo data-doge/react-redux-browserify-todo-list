@@ -23,13 +23,13 @@ const TodoList = ({todos, onTodoClick}) => (
 )
 
 class VisibleTodoList extends Component {
-  // componentDidMount () {
-  //   this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate())
-  // }
-  //
-  // componentWillUnmount () {
-  //   this.unsubscribe()
-  // }
+  componentDidMount () {
+    this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate())
+  }
+
+  componentWillUnmount () {
+    this.unsubscribe()
+  }
 
   render () {
     const {store} = this.props
