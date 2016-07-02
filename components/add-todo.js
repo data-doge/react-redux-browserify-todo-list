@@ -1,12 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-
-let nextTodoId = 0
-const addTodo = (text) => ({
-  type: 'ADD_TODO',
-  text,
-  id: nextTodoId++
-})
+import { addTodo } from '../actions'
 
 const AddTodo = connect()( // does not subscribe to store, but passes dispatch
   ({dispatch}) => {
