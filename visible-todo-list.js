@@ -3,7 +3,8 @@ const {Component} = React
 import {connect} from 'react-redux'
 
 const toggleTodo = (id) => ({
-  type: 'TOGGLE_TODO', id: id
+  type: 'TOGGLE_TODO',
+  id
 })
 
 const Todo = ({onClick, completed, text}) => (
@@ -43,7 +44,7 @@ const VisibleTodoList = connect(
     todos: getVisibleTodos(state.todos, state.visibilityFilter)
   }),
   (dispatch) => ({
-    onTodoClick: (id) => {
+    onTodoClick (id) {
       dispatch(toggleTodo(id))
     }
   })

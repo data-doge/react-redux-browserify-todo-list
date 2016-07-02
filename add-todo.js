@@ -3,7 +3,9 @@ import {connect} from 'react-redux'
 
 let nextTodoId = 0
 const addTodo = (text) => ({
-  type: 'ADD_TODO', text: text, id: nextTodoId++
+  type: 'ADD_TODO',
+  text,
+  id: nextTodoId++
 })
 
 const AddTodo = connect()( // does not subscribe to store, but passes dispatch

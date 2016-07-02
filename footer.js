@@ -3,13 +3,12 @@ const {Component} = React
 import {connect} from 'react-redux'
 
 const setVisibilityFilter = (filter) => ({
-  type: 'SET_VISIBILITY_FILTER', filter: filter
+  type: 'SET_VISIBILITY_FILTER',
+  filter
 })
 
 const Link = ({active, children, onClick}) => {
-  if (active) {
-    return <span>{children}</span>
-  }
+  if (active) return <span>{children}</span>
 
   return (
     <a href="#" onClick={(e) => {
@@ -26,7 +25,7 @@ const FilterLink = connect(
     active: props.filter === state.visibilityFilter
   }),
   (dispatch, props) => ({
-    onClick: () => {
+    onClick () {
       dispatch(setVisibilityFilter(props.filter))
     }
   })
