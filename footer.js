@@ -2,6 +2,10 @@ import React from 'react'
 const {Component} = React
 import {connect} from 'react-redux'
 
+const setVisibilityFilter = (filter) => ({
+  type: 'SET_VISIBILITY_FILTER', filter: filter
+})
+
 const Link = ({active, children, onClick}) => {
   if (active) {
     return <span>{children}</span>
@@ -18,18 +22,14 @@ const Link = ({active, children, onClick}) => {
 }
 
 const FilterLink = connect(
-  (state, props) => {
-    return {
-      active: props.filter === state.visibilityFilter
+  (state, props) => ({
+    active: props.filter === state.visibilityFilter
+  }),
+  (dispatch, props) => ({
+    onClick: () => {
+      dispatch(setVisibilityFilter(props.filter))
     }
-  },
-  (dispatch, props) => {
-    return {
-      onClick: () => {
-        dispatch({type: 'SET_VISIBILITY_FILTER', filter: props.filter})
-      }
-    }
-  }
+  })
 )(Link)
 
 const Footer = () => (

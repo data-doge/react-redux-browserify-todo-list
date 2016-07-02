@@ -2,6 +2,10 @@ import React from 'react'
 const {Component} = React
 import {connect} from 'react-redux'
 
+const toggleTodo = (id) => ({
+  type: 'TOGGLE_TODO', id: id
+})
+
 const Todo = ({onClick, completed, text}) => (
   <li
     onClick={onClick}
@@ -35,18 +39,14 @@ const getVisibleTodos = (todos, filter) => {
 }
 
 const VisibleTodoList = connect(
-  (state) => {
-    return {
-      todos: getVisibleTodos(state.todos, state.visibilityFilter),
+  (state) => ({
+    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+  }),
+  (dispatch) => ({
+    onTodoClick: (id) => {
+      dispatch(toggleTodo(id))
     }
-  },
-  (dispatch) => {
-    return {
-      onTodoClick: (id) => {
-        dispatch({type: 'TOGGLE_TODO', id})
-      }
-    }
-  }
+  })
 )(TodoList)
 
 export default VisibleTodoList
