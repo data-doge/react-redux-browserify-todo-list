@@ -78,12 +78,7 @@ const TodoApp = ({todos, visibilityFilter}) => (
       onTodoClick={id => store.dispatch({type: 'TOGGLE_TODO', id})}
     />
 
-    <Footer
-      visibilityFilter={visibilityFilter}
-      onFilterClick={filter =>
-        store.dispatch({ type: 'SET_VISIBILITY_FILTER', filter: filter})
-      }
-    />
+    <Footer store={store} />
   </div>
 )
 
