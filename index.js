@@ -2,6 +2,7 @@ import { createStore, combineReducers } from 'redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 const { Component } = React
+import TodoList from './todo-list.js'
 
 const todo = (state, action) => {
   switch (action.type) {
@@ -93,23 +94,10 @@ class TodoApp extends Component {
           this.input.value = ''
         }}>Add Todo</button>
 
-        <ul>
-          {visibleTodos.map(todo =>
-            <li key={todo.id}
-              onClick={() => {
-                store.dispatch({
-                  type: 'TOGGLE_TODO',
-                  id: todo.id
-                })
-              }}
-              style={{
-                textDecoration: todo.completed ? 'line-through' : 'none'
-              }}
-            >
-              {todo.text}
-            </li>
-          )}
-        </ul>
+      <TodoList
+        todos={visibleTodos}
+        onTodoClick={id => store.dispatch({type: 'TOGGLE_TODO', id})}
+      />
 
         <p>
           <FilterLink filter='SHOW_ALL' currentFilter={visibilityFilter}>
