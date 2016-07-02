@@ -2,7 +2,7 @@ import { createStore, combineReducers } from 'redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 const { Component } = React
-import TodoList from './todo-list.js'
+import VisibleTodoList from './visible-todo-list.js'
 import AddTodo from './add-todo.js'
 import Footer from './footer.js'
 
@@ -55,17 +55,6 @@ const todoApp = combineReducers({
 
 const store = createStore(todoApp)
 
-const getVisibleTodos = (todos, filter) => {
-  switch (filter) {
-    case 'SHOW_ALL':
-      return todos
-    case 'SHOW_COMPLETED':
-      return todos.filter( t => t.completed )
-    case 'SHOW_ACTIVE':
-      return todos.filter( t => !t.completed )
-  }
-}
-
 let nextTodoId = 0
 const TodoApp = ({todos, visibilityFilter}) => (
   <div>
@@ -73,10 +62,7 @@ const TodoApp = ({todos, visibilityFilter}) => (
       store.dispatch({ type: 'ADD_TODO', text: text, id: nextTodoId++ })
     }/>
 
-    <TodoList
-      todos={getVisibleTodos(todos, visibilityFilter)}
-      onTodoClick={id => store.dispatch({type: 'TOGGLE_TODO', id})}
-    />
+    <VisibleTodoList store={store} />
 
     <Footer store={store} />
   </div>
