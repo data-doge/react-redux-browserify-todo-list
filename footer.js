@@ -18,7 +18,8 @@ const Link = ({active, children, onClick}) => {
 
 class FilterLink extends Component {
   componentDidMount () {
-    this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate())
+    const {store} = this.context
+    this.unsubscribe = store.subscribe(() => this.forceUpdate())
   }
 
   componentWillUnmount () {
@@ -26,7 +27,8 @@ class FilterLink extends Component {
   }
 
   render () {
-    const {filter, store, children} = this.props
+    const {filter, children} = this.props
+    const { store } = this.context
     const state = store.getState()
 
     return (
@@ -40,19 +42,17 @@ class FilterLink extends Component {
   }
 }
 
-const Footer = ({store}) => (
+FilterLink.contextTypes = {
+  store: React.PropTypes.object
+}
+
+const Footer = () => (
   <p>
-    <FilterLink filter='SHOW_ALL' store={store}>
-      All
-    </FilterLink>
+    <FilterLink filter='SHOW_ALL'>All</FilterLink>
     {' '}
-    <FilterLink filter='SHOW_ACTIVE' store={store}>
-      Active
-    </FilterLink>
+    <FilterLink filter='SHOW_ACTIVE'>Active</FilterLink>
     {' '}
-    <FilterLink filter='SHOW_COMPLETED' store={store}>
-      Completed
-    </FilterLink>
+    <FilterLink filter='SHOW_COMPLETED'>Completed</FilterLink>
   </p>
 )
 

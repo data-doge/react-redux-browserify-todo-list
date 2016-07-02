@@ -55,13 +55,31 @@ const todoApp = combineReducers({
 
 const TodoApp = ({store}) => (
   <div>
-    <AddTodo store={store} />
-    <VisibleTodoList store={store} />
-    <Footer store={store} />
+    <AddTodo />
+    <VisibleTodoList />
+    <Footer />
   </div>
 )
 
+class Provider extends Component {
+  getChildContext () {
+    return {
+      store: this.props.store
+    }
+  }
+
+  render () {
+    return this.props.children
+  }
+}
+
+Provider.childContextTypes = {
+  store: React.PropTypes.object
+}
+
 ReactDOM.render(
-  <TodoApp store={createStore(todoApp)}/>,
+  <Provider store={createStore(todoApp)}>
+    <TodoApp />
+  </Provider>,
   document.getElementById('root')
 )

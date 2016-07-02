@@ -24,7 +24,8 @@ const TodoList = ({todos, onTodoClick}) => (
 
 class VisibleTodoList extends Component {
   componentDidMount () {
-    this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate())
+    const {store} = this.context
+    this.unsubscribe = store.subscribe(() => this.forceUpdate())
   }
 
   componentWillUnmount () {
@@ -32,7 +33,7 @@ class VisibleTodoList extends Component {
   }
 
   render () {
-    const {store} = this.props
+    const {store} = this.context
     const {todos, visibilityFilter} = store.getState()
 
     return (
@@ -53,6 +54,10 @@ class VisibleTodoList extends Component {
         return todos.filter( t => !t.completed )
     }
   }
+}
+
+VisibleTodoList.contextTypes = {
+  store: React.PropTypes.object
 }
 
 export default VisibleTodoList
