@@ -1,4 +1,5 @@
 import { createStore, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 const { Component } = React
@@ -60,22 +61,6 @@ const TodoApp = ({store}) => (
     <Footer />
   </div>
 )
-
-class Provider extends Component {
-  getChildContext () {
-    return {
-      store: this.props.store
-    }
-  }
-
-  render () {
-    return this.props.children
-  }
-}
-
-Provider.childContextTypes = {
-  store: React.PropTypes.object
-}
 
 ReactDOM.render(
   <Provider store={createStore(todoApp)}>
