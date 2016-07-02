@@ -1,5 +1,6 @@
 import React from 'react'
 const {Component} = React
+import {connect} from 'react-redux'
 
 const Link = ({active, children, onClick}) => {
   if (active) {
@@ -16,35 +17,20 @@ const Link = ({active, children, onClick}) => {
   )
 }
 
-class FilterLink extends Component {
-  componentDidMount () {
-    const {store} = this.context
-    this.unsubscribe = store.subscribe(() => this.forceUpdate())
+const FilterLink = connect(
+  (state, props) => {
+    return {
+      active: props.filter === state.visibilityFilter
+    }
+  },
+  (dispatch, props) => {
+    return {
+      onClick: () => {
+        dispatch({type: 'SET_VISIBILITY_FILTER', filter: props.filter})
+      }
+    }
   }
-
-  componentWillUnmount () {
-    this.unsubscribe()
-  }
-
-  render () {
-    const {filter, children} = this.props
-    const { store } = this.context
-    const state = store.getState()
-
-    return (
-      <Link
-        active={filter === state.visibilityFilter}
-        onClick={() => { store.dispatch({type: 'SET_VISIBILITY_FILTER', filter: filter}) }}
-      >
-        {children}
-      </Link>
-    )
-  }
-}
-
-FilterLink.contextTypes = {
-  store: React.PropTypes.object
-}
+)(Link)
 
 const Footer = () => (
   <p>
