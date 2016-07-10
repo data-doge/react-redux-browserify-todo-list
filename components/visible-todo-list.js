@@ -2,7 +2,6 @@ import React from 'react'
 const {Component} = React
 import {connect} from 'react-redux'
 import {toggleTodo} from '../actions'
-import * as todoFilters from '../constants/todo-filter'
 
 const Todo = ({onClick, completed, text}) => (
   <li
@@ -27,18 +26,18 @@ const TodoList = ({todos, onTodoClick}) => (
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
-    case todoFilters.SHOW_ALL:
+    case 'all':
       return todos
-    case todoFilters.SHOW_COMPLETED:
+    case 'completed':
       return todos.filter( t => t.completed )
-    case todoFilters.SHOW_ACTIVE:
+    case 'active':
       return todos.filter( t => !t.completed )
   }
 }
 
 const VisibleTodoList = connect(
   (state, props) => ({
-    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+    todos: getVisibleTodos(state.todos, props.filter)
   }),
   (dispatch) => ({
     onTodoClick (id) {
