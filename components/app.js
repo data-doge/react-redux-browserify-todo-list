@@ -6,7 +6,7 @@ import Footer from './footer.js'
 const App = ({params}) => (
   <div>
     <AddTodo />
-    <VisibleTodoList filter={params.filter}/>
+    <VisibleTodoList filter={params.filter || 'all'} />
     <Footer />
   </div>
 )
