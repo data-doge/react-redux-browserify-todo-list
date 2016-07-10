@@ -2,6 +2,7 @@ import React from 'react'
 const {Component} = React
 import {connect} from 'react-redux'
 import {toggleTodo} from '../actions'
+import {withRouter} from 'react-router'
 
 const Todo = ({onClick, completed, text}) => (
   <li
@@ -35,15 +36,15 @@ const getVisibleTodos = (todos, filter) => {
   }
 }
 
-const VisibleTodoList = connect(
-  (state, props) => ({
-    todos: getVisibleTodos(state.todos, props.filter)
+const VisibleTodoList = withRouter(connect(
+  (state, {params}) => ({
+    todos: getVisibleTodos(state.todos, params.filter || 'all')
   }),
   (dispatch) => ({
     onTodoClick (id) {
       dispatch(toggleTodo(id))
     }
   })
-)(TodoList)
+)(TodoList))
 
 export default VisibleTodoList
