@@ -40,6 +40,7 @@ const mapStateToProps = (state, {params}) => ({
   todos: getVisibleTodos(state.todos, params.filter || 'all')
 })
 
+// shorthand notation, b/c callback props match arguments for action creator
 const mapDispatchToProps = (dispatch) => ({
   onTodoClick: toggleTodo
 })
