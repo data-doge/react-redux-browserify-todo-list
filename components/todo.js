@@ -9,4 +9,4 @@ const Todo = ({onClick, completed, text}) => (
   </li>
 )
 
-export default Todo
+export default Todo 
