@@ -1,5 +1,5 @@
 {
-  "name": "redux-tutorial",
+  "name": "react-redux-browserify-todo-app",
   "version": "1.0.0",
   "description": "learning redux",
   "main": "index.js",
@@ -29,14 +29,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/data-doge/redux-tutorial"
+    "url": "https://github.com/data-doge/react-redux-browserify-todo-app"
   },
   "author": "data-doge",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/data-doge/redux-tutorial/issues"
+    "url": "https://github.com/data-doge/react-redux-browserify-todo-app/issues"
   },
-  "homepage": "https://github.com/data-doge/redux-tutorial",
+  "homepage": "https://github.com/data-doge/react-redux-browserify-todo-app",
   "dependencies": {
     "node-uuid": "^1.4.7",
     "normalizr": "^2.2.1",

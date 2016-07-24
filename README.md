@@ -1,15 +1,12 @@
-
-# redux-tutorial
+# react-redux-browserify-todo-app
 
 learning redux
 
-## how
-
-### install
+## install
 
 ```
-git clone https://github.com/data-doge/redux-tutorial
-cd 
+git clone https://github.com/data-doge/react-redux-browserify-todo-app
+cd react-redux-browserify-todo-app
 npm install
 ```
 
@@ -20,12 +17,6 @@ npm start
 ```
 
 browse to <http://localhost:9966/>.
-
-## test
-
-```
-npm test
-```
 
 ## deploy
 
