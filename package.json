@@ -6,7 +6,6 @@
   "scripts": {
     "start": "budo . -d --pushstate --serve bundle.js --live",
     "build": "browserify . -o bundle.js -g uglifyify",
-    "test": "browserify test.js | smokestack | tap-spec",
     "dist": "mkdir -p dist && bash -c 'cp *.{js,html,css} dist'",
     "push": "gh-pages -d dist",
     "deploy": "npm run build && npm run dist && npm run push"
@@ -39,10 +38,6 @@
   },
   "homepage": "https://github.com/data-doge/redux-tutorial",
   "dependencies": {
-    "deep-freeze": "0.0.1",
-    "expect": "^1.20.2",
-    "jquery": "^3.0.0",
-    "lodash.throttle": "^4.0.1",
     "node-uuid": "^1.4.7",
     "normalizr": "^2.2.1",
     "react": "^15.2.0",
@@ -51,7 +46,6 @@
     "react-router": "^3.0.0-alpha.1",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
-    "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
@@ -63,10 +57,6 @@
     "browserify": "^10.0.0",
     "budo": "^4.0.0",
     "gh-pages": "^0.3.0",
-    "smokestack": "^3.3.0",
-    "tap-spec": "^4.0.2",
-    "tape": "^4.0.0",
-    "uglifyify": "^3.0.1",
-    "watchify": "^3.1.0"
+    "uglifyify": "^3.0.1"
   }
 }
