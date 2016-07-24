@@ -2,7 +2,7 @@ import * as types from '../constants/action-types'
 import v4 from 'node-uuid'
 import * as api from '../api'
 
-export const requestTodos = (filter) => ({
+const requestTodos = (filter) => ({
   type: types.REQUEST_TODOS,
   filter
 })
@@ -13,9 +13,10 @@ const receiveTodos = (filter, response) => ({
   response
 })
 
-export const fetchTodos = (filter) => {
+export const fetchTodos = (filter) => (dispatch) => {
+  dispatch(requestTodos(filter))
   return api.fetchTodos(filter).then((response) => {
-    return receiveTodos(filter, response)
+    dispatch(receiveTodos(filter, response))
   })
 }
 
