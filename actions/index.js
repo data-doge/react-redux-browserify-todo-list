@@ -2,6 +2,11 @@ import * as types from '../constants/action-types'
 import v4 from 'node-uuid'
 import * as api from '../api'
 
+export const requestTodos = (filter) => ({
+  type: types.REQUEST_TODOS,
+  filter
+})
+
 const receiveTodos = (filter, response) => ({
   type: 'RECEIVE_TODOS',
   filter,
