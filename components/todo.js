@@ -1,5 +1,5 @@
 import React from 'react'
-import InlineEdit from 'react-edit-inline'
+import {RIEInput} from 'riek'
 
 const Todo = ({id, onTodoToggle, onTodoDelete, onTodoUpdate, completed, text}) => {
 
@@ -10,9 +10,9 @@ const Todo = ({id, onTodoToggle, onTodoDelete, onTodoUpdate, completed, text}) =
   return (
     <li>
       <input type="checkbox" checked={completed} onChange={onTodoToggle}></input>
-      <InlineEdit
-        text={text}
-        paramName="newText"
+      <RIEInput
+        value={text}
+        propName="newText"
         change={onChange}
       />
       <button onClick={onTodoDelete}>X</button>
