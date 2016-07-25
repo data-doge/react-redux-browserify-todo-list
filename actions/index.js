@@ -40,10 +40,18 @@ export const addTodo = (text) => (dispatch) =>
   })
 
 export const toggleTodo = (id) => (dispatch) => {
-  console.log('called~')
   return api.toggleTodo(id).then(response => {
     dispatch({
       type: types.TOGGLE_TODO_SUCCESS,
+      response: normalize(response, schema.todo)
+    })
+  })
+}
+
+export const updateTodo = (id, text) => (dispatch) => {
+  return api.updateTodo(id, text).then(response => {
+    dispatch({
+      type: types.UPDATE_TODO_SUCCESS,
       response: normalize(response, schema.todo)
     })
   })

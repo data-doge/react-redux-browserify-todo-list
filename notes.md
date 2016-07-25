@@ -1,6 +1,5 @@
 ## todo
 
-- can edit a todo
 - styling
 - todo-lists
   - home page has a list of todo lists
