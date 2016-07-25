@@ -1,6 +1,5 @@
 ## todo
 
-- can delete a todo
 - can edit a todo
 - styling
 - todo-lists

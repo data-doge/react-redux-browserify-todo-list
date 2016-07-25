@@ -2,16 +2,9 @@ import React from 'react'
 
 const Todo = ({onTodoToggle, onTodoDelete, completed, text}) => (
   <li>
-    <span
-      onClick={onTodoToggle}
-      style={{textDecoration: completed ? 'line-through' : 'none'}}
-    >
-      {text}
-    </span>
-
-    <button onClick={onTodoDelete}>
-      X
-    </button>
+    <input type="checkbox" checked={completed} onChange={onTodoToggle}></input>
+    <span style={{width: '200px', display: 'inline-block'}}>{text}</span>
+    <button onClick={onTodoDelete}>X</button>
   </li>
 )
 
