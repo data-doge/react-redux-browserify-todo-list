@@ -1,4 +1,5 @@
 import {v4} from 'node-uuid'
+import remove from 'lodash.remove'
 
 const fakeDatabase = {
   todos: [{
@@ -56,4 +57,13 @@ export const toggleTodo = (id) =>
     const todo = fakeDatabase.todos.find(t => t.id === id)
     todo.completed = !todo.completed
     return todo
+  })
+
+export const deleteTodo = (id) =>
+  delay(500).then(() => {
+    const deletedTodo = remove(fakeDatabase.todos, (todo) => {
+      return todo.id === id
+    })[0]
+
+    return deletedTodo
   })

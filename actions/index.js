@@ -34,15 +34,25 @@ export const fetchTodos = (filter) => (dispatch, getState) => {
 export const addTodo = (text) => (dispatch) =>
   api.addTodo(text).then(response => {
     dispatch({
-      type: 'ADD_TODO_SUCCESS',
+      type: types.ADD_TODO_SUCCESS,
       response: normalize(response, schema.todo)
     })
   })
 
-export const toggleTodo = (id) => (dispatch) =>
-  api.toggleTodo(id).then(response => {
+export const toggleTodo = (id) => (dispatch) => {
+  console.log('called~')
+  return api.toggleTodo(id).then(response => {
     dispatch({
-      type: 'TOGGLE_TODO_SUCCESS',
+      type: types.TOGGLE_TODO_SUCCESS,
       response: normalize(response, schema.todo)
     })
   })
+}
+
+export const deleteTodo = (id) => (dispatch) =>
+  api.deleteTodo(id).then(response =>
+    dispatch({
+      type: types.DELETE_TODO_SUCCESS,
+      response: normalize(response, schema.todo)
+    })
+  )

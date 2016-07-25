@@ -1,7 +1,11 @@
-immutable state trees
+## todo
 
-the only way to change the state tree is by dispatching an action, a plain object describing in a minimum way what has changed in the application
-
-actions can be initiated by anything, a component, a network request
-
-the reducer is a pure function that takes the current state, and an action, and returns the new state
+- can delete a todo
+- can edit a todo
+- styling
+- todo-lists
+  - home page has a list of todo lists
+  - todo list page contains todos
+- user management
+  - home page redirects to sign-in page unless current user signed in
+  - sign-in page

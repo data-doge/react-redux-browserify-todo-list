@@ -38,8 +38,10 @@
   },
   "homepage": "https://github.com/data-doge/react-redux-browserify-todo-app",
   "dependencies": {
+    "lodash.remove": "^4.5.0",
     "node-uuid": "^1.4.7",
     "normalizr": "^2.2.1",
+    "object-key-filter": "0.0.4",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "react-redux": "^4.4.5",

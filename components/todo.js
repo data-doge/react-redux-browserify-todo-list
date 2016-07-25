@@ -1,12 +1,18 @@
 import React from 'react'
 
-const Todo = ({onClick, completed, text}) => (
-  <li
-    onClick={onClick}
-    style={{textDecoration: completed ? 'line-through' : 'none'}}
-  >
-    {text}
+const Todo = ({onTodoToggle, onTodoDelete, completed, text}) => (
+  <li>
+    <span
+      onClick={onTodoToggle}
+      style={{textDecoration: completed ? 'line-through' : 'none'}}
+    >
+      {text}
+    </span>
+
+    <button onClick={onTodoDelete}>
+      X
+    </button>
   </li>
 )
 
-export default Todo 
+export default Todo

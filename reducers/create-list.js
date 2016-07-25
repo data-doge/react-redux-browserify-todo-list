@@ -1,4 +1,4 @@
-import {FETCH_TODOS_REQUEST, FETCH_TODOS_SUCCESS, FETCH_TODOS_FAILURE, ADD_TODO_SUCCESS, TOGGLE_TODO_SUCCESS} from '../constants/action-types'
+import {FETCH_TODOS_REQUEST, FETCH_TODOS_SUCCESS, FETCH_TODOS_FAILURE, ADD_TODO_SUCCESS, TOGGLE_TODO_SUCCESS, DELETE_TODO_SUCCESS} from '../constants/action-types'
 import {combineReducers} from 'redux'
 
 const createList = (filter) => {
@@ -26,6 +26,10 @@ const createList = (filter) => {
           state
       case TOGGLE_TODO_SUCCESS:
         return handleToggle(state, action)
+      case DELETE_TODO_SUCCESS:
+        return state.filter(id =>
+          id !== action.response.result
+        )
       default:
         return state
     }
